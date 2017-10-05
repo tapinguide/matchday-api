@@ -6,6 +6,7 @@ import linecache
 import django, json
 import time
 import datetime
+from datetime import timedelta 
 from django.utils import timezone
 from django.conf import settings
 
@@ -36,40 +37,44 @@ def setup_matches(from_date, to_date):
                     print matches_response['message']
                 else:
                     for match_response in matches_response:
-                            
-                        matchApiId = match_response['id']
-                    
-                        match, created = Match.objects.get_or_create(competition=competition, footballAPIId = matchApiId)
-                            
-                        homeClub, created = Club.objects.get_or_create(footballAPIId = match_response['localteam_id'])
-                        homeClub.name = match_response['localteam_name'] 
-                        homeClub.save()
+                        try:      
+                            matchApiId = match_response['id']
                         
-                        visitorClub, created = Club.objects.get_or_create(footballAPIId = match_response['visitorteam_id'])
-                        visitorClub.name = match_response['visitorteam_name']
-                        visitorClub.save()
+                            match, created = Match.objects.get_or_create(competition=competition, footballAPIId = matchApiId)
+                                
+                            homeClub, created = Club.objects.get_or_create(footballAPIId = match_response['localteam_id'])
+                            homeClub.name = match_response['localteam_name'] 
+                            homeClub.save()
+                            
+                            visitorClub, created = Club.objects.get_or_create(footballAPIId = match_response['visitorteam_id'])
+                            visitorClub.name = match_response['visitorteam_name']
+                            visitorClub.save()
 
-                        match.homeClub = homeClub
-                        match.visitorClub = visitorClub
-                        matchDate = match_response['formatted_date']
-                        if match_response['time'] != "TBA":
-                            matchTime = match_response['time']
-                            matchDateTime = matchDate + ' ' + matchTime
-                            match.matchTime = datetime.datetime.strptime(matchDateTime, '%d.%m.%Y %H:%M').strftime('%Y-%m-%d %H:%M')
-                        match.homeClubScore = 0
-                        match.visitorClubScore = 0
-                        match.homeClubPenalties = 0
-                        match.visitorClubPenalties = 0
-                        match.status = MatchStatus.objects.get(id=1)
-                        match.timer = ''
-                        match.active = False
-                        match.venue = match_response['venue']
-                        match.venueCity = match_response['venue_city']
-                        match.save()
-                        if created:
-                            print 'Match inserted - ' + match.homeClub.name + ' v ' + match.visitorClub.name
-                        else:
-                            print 'Match updated - ' + match.homeClub.name + ' v ' + match.visitorClub.name
+                            match.homeClub = homeClub
+                            match.visitorClub = visitorClub
+                            matchDate = match_response['formatted_date']
+                            if match_response['time'] != "TBA":
+                                matchTime = match_response['time']
+                                matchDateTime = matchDate + ' ' + matchTime
+                                match.matchTime = datetime.datetime.strptime(matchDateTime, '%d.%m.%Y %H:%M').strftime('%Y-%m-%d %H:%M')
+                            match.homeClubScore = 0
+                            match.visitorClubScore = 0
+                            match.homeClubPenalties = 0
+                            match.visitorClubPenalties = 0
+                            match.status = MatchStatus.objects.get(id=1)
+                            match.timer = ''
+                            match.active = False
+                            if(match.venue != ''):
+                                match.venue = match_response['venue']
+                            if(match.venueCity != ''):
+                                match.venueCity = match_response['venue_city']
+                            match.save()
+                            if created:
+                                print 'Match inserted - ' + match.homeClub.name.encode(sys.stdout.encoding, errors='replace') + ' v ' + match.visitorClub.name.encode(sys.stdout.encoding, errors='replace')
+                            else:
+                                print 'Match updated - ' + match.homeClub.name.encode(sys.stdout.encoding, errors='replace') + ' v ' + match.visitorClub.name.encode(sys.stdout.encoding, errors='replace')
+                        except:
+                            PrintException()
             except:
                 PrintException()
     except:
@@ -92,8 +97,14 @@ def PrintException():
     print 'EXCEPTION IN ({}, LINE {} "{}"): {}'.format(filename, lineno, line.strip(), exc_obj)
 
 def main():
-    from_date = sys.argv[1]
-    to_date = sys.argv[2]
+    if len(sys.argv) > 1:
+        from_date = sys.argv[1]
+        to_date = sys.argv[2]
+    else:
+        today = datetime.datetime.now()
+        future = today + timedelta(days=30)
+        from_date = today.strftime('%m/%d/%Y')
+        to_date = future.strftime('%m/%d/%Y')
 
     setup_matches(from_date, to_date)
 
