@@ -57,12 +57,6 @@ def setup_matches(from_date, to_date):
                                 matchTime = match_response['time']
                                 matchDateTime = matchDate + ' ' + matchTime
                                 match.matchTime = datetime.datetime.strptime(matchDateTime, '%d.%m.%Y %H:%M').strftime('%Y-%m-%d %H:%M')
-                            match.homeClubScore = 0
-                            match.visitorClubScore = 0
-                            match.homeClubPenalties = 0
-                            match.visitorClubPenalties = 0
-                            match.status = MatchStatus.objects.get(id=1)
-                            match.timer = ''
                             match.active = False
                             if(match.venue != ''):
                                 match.venue = match_response['venue']
