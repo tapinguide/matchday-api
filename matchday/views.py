@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .models import Club, Match, MatchStatus, Competition, Link, ContextBlurb
+from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb
 from rest_framework import viewsets
-from .serializers import MatchStatusSerializer, ClubSerializer, ClubWithCrestSerializer, CompetitionSerializer, MatchSerializer, ActiveMatchSerializer, LinkSerializer, ContextBlurbSerializer
+from .serializers import MatchStatusSerializer, ClubSerializer, ClubWithCrestSerializer, CompetitionSerializer, MatchSerializer, ActiveMatchSerializer, MustReadWatchSerializer, ContextBlurbSerializer
 
 def index(request):
     return render(request, 'matchday/index.html')
@@ -49,13 +49,13 @@ class ActiveMatchViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Match.objects.filter(display=True).order_by('status__sortOrder', 'matchTime').prefetch_related('events')
     serializer_class = ActiveMatchSerializer
 
-class LinkViewSet(viewsets.ReadOnlyModelViewSet):
+class MustReadWatchViewSet(viewsets.ReadOnlyModelViewSet):
     
     """
-    API endpoint that allows links to be viewed
+    API endpoint that allows MustReadWatch to be viewed
     """
-    queryset = Link.objects.all()
-    serializer_class = LinkSerializer
+    queryset = MustReadWatch.objects.all()
+    serializer_class = MustReadWatchSerializer
 
 class ContextBlurbViewSet(viewsets.ReadOnlyModelViewSet):
     

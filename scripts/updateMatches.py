@@ -36,10 +36,9 @@ def updateMatches():
                     print match_response['message']
                 else:
                     if match_response['status'] != match_response['time']:
-                        print match_response['localteam_score']
-                        if match_response['localteam_score'] is not None:
+                        if match_response['localteam_score'] != "":
                             match.homeClubScore = match_response['localteam_score']
-                        if match_response['visitorteam_score'] is not None:
+                        if match_response['visitorteam_score'] != "":
                             match.visitorClubScore = match_response['visitorteam_score']
                         match.timer = match_response['timer']
 

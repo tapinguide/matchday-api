@@ -101,12 +101,13 @@ class Event(models.Model):
     def __unicode__(self):
         return self.player + ' - ' + self.eventType
 
-class Link(models.Model):
-    shortCode = models.CharField(max_length=5, null=False)
-    text = models.CharField(max_length=50, null=False)
-    url = models.CharField(max_length=50, null=False)
+class MustReadWatch(models.Model):
+    header = models.CharField(max_length=15, null=False, blank=False)
+    text = models.CharField(max_length=50, null=False, blank=False)
+    url = models.CharField(max_length=500, null=False, blank=False)
+    mustType = models.CharField('Type', max_length=256, choices=[('read', 'Read'), ('watch', 'Watch')], null=False, blank=False)
     def __unicode__(self):
-        return self.shortCode + ' - ' + self.text
+        return self.mustType + ' - ' + self.text
 
 class ContextBlurb(models.Model):
     text = models.CharField(max_length=500, null=True)

@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Competition, Club, Match, MatchStatus, Event, Link, ContextBlurb
+from .models import Competition, Club, Match, MatchStatus, Event, MustReadWatch, ContextBlurb
 
 class CompetitionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,9 +41,9 @@ class ActiveMatchSerializer(serializers.ModelSerializer):
         depth = 2
         fields = '__all__'
 
-class LinkSerializer(serializers.ModelSerializer):
+class MustReadWatchSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Link
+        model = MustReadWatch
         fields = '__all__'
 
 class ContextBlurbSerializer(serializers.ModelSerializer):
