@@ -35,7 +35,8 @@ def updateMatches():
                 if match_response['status'] == 'error':
                     print match_response['message']
                 else:
-                    if match_response['status'] != match_response['time']:
+                    if (match_response['status'] != match_response['time'])
+                    && (match_response['status'] != "" && match_response['timer'] != ""):
                         if match_response['localteam_score'] != "":
                             match.homeClubScore = match_response['localteam_score']
                         if match_response['visitorteam_score'] != "":
