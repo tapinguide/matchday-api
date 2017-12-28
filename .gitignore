@@ -2,6 +2,7 @@
 
 ### App specifics ###
 media/
+scripts/local_config.py
 
 ### OSX ###
 .DS_Store
