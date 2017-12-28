@@ -1,5 +1,8 @@
 # Created by https://www.gitignore.io
 
+### App specifics ###
+media/
+
 ### OSX ###
 .DS_Store
 .AppleDouble
@@ -84,6 +87,7 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
+migrations/
 
 .env
 db.sqlite3
