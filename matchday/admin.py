@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb
+from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb, Table
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from django import forms
 
@@ -47,4 +47,6 @@ class ContextBlurbModelForm(forms.ModelForm):
 class ContextBlurbAdmin(admin.ModelAdmin):  
     form = ContextBlurbModelForm
 admin.site.register(ContextBlurb, ContextBlurbAdmin)
+
+admin.site.register(Table)
 

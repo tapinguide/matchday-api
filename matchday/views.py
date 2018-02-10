@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb
+from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb, Table
 from rest_framework import viewsets
-from .serializers import MatchStatusSerializer, ClubSerializer, ClubWithCrestSerializer, CompetitionSerializer, MatchSerializer, ActiveMatchSerializer, MustReadWatchSerializer, ContextBlurbSerializer
+from .serializers import MatchStatusSerializer, ClubSerializer, ClubWithCrestSerializer, CompetitionSerializer, MatchSerializer, ActiveMatchSerializer, MustReadWatchSerializer, ContextBlurbSerializer, TableSerializer
+from django_filters.rest_framework import DjangoFilterBackend
 
 def index(request):
     return render(request, 'matchday/index.html')
@@ -65,3 +66,12 @@ class ContextBlurbViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = ContextBlurb.objects.all()
     serializer_class = ContextBlurbSerializer
 
+class TableViewSet(viewsets.ReadOnlyModelViewSet):
+    
+    """
+    API endpoint that allows the tables to be viewed
+    """
+    queryset = Table.objects.all()
+    serializer_class = TableSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('competition_id',)

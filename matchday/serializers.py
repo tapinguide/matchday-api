@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Competition, Club, Match, MatchStatus, Event, MustReadWatch, ContextBlurb
+from .models import Competition, Club, Match, MatchStatus, Event, MustReadWatch, ContextBlurb, Table
 
 class CompetitionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,3 +50,9 @@ class ContextBlurbSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContextBlurb
         fields = '__all__'
+
+class TableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Table
+        depth = 1
+        fields = 'season','recentForm','position','goalDifference','points','description','competition_id','competition','club'   

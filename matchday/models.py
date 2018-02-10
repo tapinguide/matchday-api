@@ -113,3 +113,18 @@ class ContextBlurb(models.Model):
     text = models.CharField(max_length=500, null=True)
     def __unicode__(self):
         return 'This week''s context blurb'
+
+class Table(models.Model):
+    competition = models.ForeignKey(Competition, verbose_name='Competition/League', null=False, blank=False)
+    club = models.ForeignKey(Club, verbose_name='Club (API Club)', null=False)
+    season = models.CharField(max_length=50, null=False)
+    recentForm = models.CharField(max_length=50, null=True)
+    position = models.IntegerField(default=0, null=False)
+    goalDifference = models.CharField(max_length=50, null=True)
+    points = models.IntegerField(default=0, null=True)
+    description = models.CharField(max_length=500, null=True)
+    class Meta:
+        verbose_name_plural = "Tables"
+    def __unicode__(self):
+        return self.competition.name \
+        + ' - ' + self.club.name 
