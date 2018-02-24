@@ -34,6 +34,8 @@ def setup_tables():
                 
                 if 'status' in tables_response:
                     print tables_response['message']
+                elif 'error_code' in tables_response:
+                    print tables_response['error_description']
                 else:
                     for table_response in tables_response:
                         try:      
@@ -45,6 +47,12 @@ def setup_tables():
                             goalDifference = table_response['gd']
                             points = table_response['points']
                             description = table_response['description']
+                            matchesPlayed = table_response['overall_gp']
+                            matchesWon = table_response['overall_w']
+                            matchesDrew = table_response['overall_d']
+                            matchesLost = table_response['overall_l']
+                            goalsScored = table_response['overall_gs']
+                            goalsAllowed = table_response['overall_ga']
 
                             club, created = Club.objects.get_or_create(footballAPIId = teamId)
                             if created:
@@ -59,7 +67,14 @@ def setup_tables():
                             table.goalDifference = goalDifference
                             table.points = points
                             table.description = description
+                            table.matchesPlayed = matchesPlayed
+                            table.matchesWon = matchesWon
+                            table.matchesDrew = matchesDrew
+                            table.matchesLost = matchesLost
+                            table.goalsScored = goalsScored
+                            table.goalsAllowed = goalsAllowed
                             table.save()
+                            print 'Updated table for ' + competition.name
                         except:
                             PrintException()
             except:

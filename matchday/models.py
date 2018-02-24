@@ -123,6 +123,12 @@ class Table(models.Model):
     goalDifference = models.CharField(max_length=50, null=True)
     points = models.IntegerField(default=0, null=True)
     description = models.CharField(max_length=500, null=True)
+    matchesPlayed = models.IntegerField(default=0, null=False)
+    matchesWon = models.IntegerField(default=0, null=False)
+    matchesDrew = models.IntegerField(default=0, null=False)
+    matchesLost = models.IntegerField(default=0, null=False)
+    goalsScored = models.IntegerField(default=0, null=False)
+    goalsAllowed = models.IntegerField(default=0, null=False)
     class Meta:
         verbose_name_plural = "Tables"
     def __unicode__(self):

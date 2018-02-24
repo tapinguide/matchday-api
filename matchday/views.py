@@ -71,7 +71,7 @@ class TableViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows the tables to be viewed
     """
-    queryset = Table.objects.all()
+    queryset = Table.objects.all().order_by('position')
     serializer_class = TableSerializer
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('competition_id',)

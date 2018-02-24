@@ -55,4 +55,6 @@ class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
         depth = 1
-        fields = 'season','recentForm','position','goalDifference','points','description','competition_id','competition','club'   
+        fields = 'season','recentForm','position','goalDifference','points','description','competition_id','competition','club','matchesPlayed','matchesWon','matchesDrew','matchesLost','goalsScored','goalsAllowed'   
+
+  
