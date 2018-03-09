@@ -105,7 +105,7 @@ class MustReadWatch(models.Model):
     header = models.CharField(max_length=15, null=False, blank=False)
     text = models.CharField(max_length=50, null=False, blank=False)
     url = models.CharField(max_length=500, null=False, blank=False)
-    mustType = models.CharField('Type', max_length=256, choices=[('read', 'Read'), ('watch', 'Watch')], null=False, blank=False)
+    mustType = models.CharField('Type', max_length=256, choices=[('read', 'Read'), ('watch', 'Watch'), ('wear', 'Wear'), ('listen', 'Listen')], null=False, blank=False)
     def __unicode__(self):
         return self.mustType + ' - ' + self.text
 
