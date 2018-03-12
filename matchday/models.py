@@ -129,6 +129,7 @@ class Table(models.Model):
     matchesLost = models.IntegerField(default=0, null=False)
     goalsScored = models.IntegerField(default=0, null=False)
     goalsAllowed = models.IntegerField(default=0, null=False)
+    compGroup = models.CharField(max_length=200, null=True)
     class Meta:
         verbose_name_plural = "Tables"
     def __unicode__(self):
