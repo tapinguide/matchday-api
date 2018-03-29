@@ -53,7 +53,8 @@ def setup_tables():
                             matchesLost = table_response['overall_l']
                             goalsScored = table_response['overall_gs']
                             goalsAllowed = table_response['overall_ga']
-
+                            stageId = table_response['stage_id']
+                            
                             club, created = Club.objects.get_or_create(footballAPIId = teamId)
                             if created:
                                 club.name = teamName
@@ -73,6 +74,7 @@ def setup_tables():
                             table.matchesLost = matchesLost
                             table.goalsScored = goalsScored
                             table.goalsAllowed = goalsAllowed
+                            table.stageId = stageId
                             table.save()
                             print 'Updated table for ' + competition.name
                         except:
