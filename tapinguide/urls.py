@@ -15,6 +15,7 @@ router.register(r'clubswithcrests', views.ClubWithCrestViewSet)
 router.register(r'mustreadwatch', views.MustReadWatchViewSet),
 router.register(r'contextblurb', views.ContextBlurbViewSet)
 router.register(r'tables', views.TableViewSet)
+router.register(r'cotw', views.CrestOfTheWeekViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

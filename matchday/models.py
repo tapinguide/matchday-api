@@ -136,3 +136,13 @@ class Table(models.Model):
     def __unicode__(self):
         return self.competition.name \
         + ' - ' + self.club.name 
+
+class CrestOfTheWeek(models.Model):
+    clubName = models.CharField(max_length=100, verbose_name='Club Name',  null=False)
+    currentBadge = models.FileField(upload_to='crests', verbose_name='Current Badge', null=False)
+    newBadge = models.FileField(upload_to='crests', verbose_name='New Badge', null=False)
+    body = models.TextField(verbose_name='Body', null=False)
+    class Meta:
+        verbose_name_plural = "Crest Of The Week"
+    def __unicode__(self):
+        return self.clubName

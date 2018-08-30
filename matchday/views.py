@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb, Table
+from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb, Table, CrestOfTheWeek
 from rest_framework import viewsets
-from .serializers import MatchStatusSerializer, ClubSerializer, ClubWithCrestSerializer, CompetitionSerializer, MatchSerializer, ActiveMatchSerializer, MustReadWatchSerializer, ContextBlurbSerializer, TableSerializer
+from .serializers import MatchStatusSerializer, ClubSerializer, ClubWithCrestSerializer, CompetitionSerializer, MatchSerializer, ActiveMatchSerializer, MustReadWatchSerializer, ContextBlurbSerializer, TableSerializer, CrestOfTheWeekSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 def index(request):
@@ -41,6 +41,10 @@ class MatchViewSet(viewsets.ReadOnlyModelViewSet):
     """
     queryset = Match.objects.all().order_by('matchTime')
     serializer_class = MatchSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = 'competition_id',{
+        'matchTime': ['gte', 'lt']
+        }
 
 class ActiveMatchViewSet(viewsets.ReadOnlyModelViewSet):
     
@@ -74,4 +78,12 @@ class TableViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Table.objects.all().order_by('position')
     serializer_class = TableSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('competition_id',)
+    filter_fields = {'competition_id',}
+
+class CrestOfTheWeekViewSet(viewsets.ReadOnlyModelViewSet):
+    
+    """
+    API endpoint that allows the crest of the week to be viewed
+    """
+    queryset = CrestOfTheWeek.objects.all()
+    serializer_class = CrestOfTheWeekSerializer

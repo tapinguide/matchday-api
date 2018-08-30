@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from .models import Competition, Club, Match, MatchStatus, Event, MustReadWatch, ContextBlurb, Table
+from .models import Competition, Club, Match, MatchStatus, Event, MustReadWatch, ContextBlurb, Table, CrestOfTheWeek
 
 class CompetitionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,6 +55,12 @@ class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
         depth = 1
-        fields = 'season','stageId', 'recentForm','position','goalDifference','points','description','competition_id','competition','club','matchesPlayed','matchesWon','matchesDrew','matchesLost','goalsScored','goalsAllowed', 'compGroup'  
+        fields = '__all__'
+
+class CrestOfTheWeekSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CrestOfTheWeek
+        depth= 1
+        fields = '__all__'
 
   

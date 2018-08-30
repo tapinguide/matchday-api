@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb, Table
+from .models import Club, Match, MatchStatus, Competition, MustReadWatch, ContextBlurb, Table, CrestOfTheWeek
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from django import forms
 
@@ -49,4 +49,14 @@ class ContextBlurbAdmin(admin.ModelAdmin):
 admin.site.register(ContextBlurb, ContextBlurbAdmin)
 
 admin.site.register(Table)
+
+class CrestOfTheWeekModelForm(forms.ModelForm):
+    body = forms.CharField(widget=forms.Textarea, label = 'Body', required=True)
+    class Meta:
+        model = CrestOfTheWeek
+        fields = '__all__' 
+
+class CrestOfTheWeekAdmin(admin.ModelAdmin):  
+    form = CrestOfTheWeekModelForm
+admin.site.register(CrestOfTheWeek, CrestOfTheWeekAdmin)
 
